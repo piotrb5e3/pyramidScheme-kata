@@ -1,10 +1,16 @@
 var sails = require('sails');
 
+const chai = require('chai');
+chai.use(require('chai-moment'));
+
+const moment = require('moment-timezone');
+moment.locale('en');
+
 // Before running any tests...
 before(function (done) {
 
   // Increase the Mocha timeout so that Sails has enough time to lift, even if you have a bunch of assets.
-  this.timeout(5000);
+  this.timeout(20000);
 
   sails.lift({
     // Your sails app's configuration files will be loaded automatically,

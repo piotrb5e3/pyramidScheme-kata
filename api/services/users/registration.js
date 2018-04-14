@@ -1,5 +1,5 @@
-const passwordService = require('../crypto/password');
 const userManagementService = require('./management');
+const bcrypt = require('bcrypt');
 
 module.exports = {
   registerParticipant(username, password) {
@@ -18,12 +18,10 @@ module.exports = {
     }
   },
 
-  _persistUser(username, password, isAdmin) {
-    const salt = passwordService.generateSalt();
-    const passwordHash = passwordService.hashPasswordWithSalt(password, salt);
+  _persistUser: async function(username, password, isAdmin) {
+    const passwordHash = await bcrypt.hash(password, 10);
     return User.create({
       username,
-      salt,
       passwordHash,
       isAdmin,
     }).fetch();

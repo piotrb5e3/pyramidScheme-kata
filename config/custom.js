@@ -1,12 +1,5 @@
-/**
- * Custom configuration
- * (sails.config.custom)
- *
- * One-off settings specific to your application.
- *
- * For more information on custom configuration, visit:
- * https://sailsjs.com/config/custom
- */
+const moment = require('moment-timezone');
+moment.locale('en');
 
 module.exports.custom = {
 

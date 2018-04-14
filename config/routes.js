@@ -11,5 +11,5 @@
 module.exports.routes = {
   'get /hello': { action: 'misc/hello' },
   'post /register': { action: 'users/register-participant' },
-  'post /register-admin': { action: 'users/register-admin' },
+  'post /login': { action: 'users/login' },
 };
