@@ -19,8 +19,8 @@ module.exports = {
   },
 
   exits: {
-    badAuth: {
-      statusCode: 401,
+    badCredentials: {
+      responseType: 'badCredentials',
     }
   },
 
@@ -34,7 +34,7 @@ module.exports = {
         validTo: user.authTokenValidTo,
       });
     } else {
-      exits.badAuth();
+      exits.badCredentials();
     }
 
   }

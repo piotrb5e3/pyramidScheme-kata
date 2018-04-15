@@ -9,7 +9,7 @@
  */
 
 module.exports.routes = {
-  'get /hello': { action: 'misc/hello' },
   'post /register': { action: 'users/register-participant' },
   'post /login': { action: 'users/login' },
+  'get /userinfo': { action: 'users/userinfo' },
 };

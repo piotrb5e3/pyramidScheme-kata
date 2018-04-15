@@ -9,14 +9,8 @@
  */
 
 module.exports.policies = {
-
-  /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions, unless overridden.       *
-  * (`true` allows public access)                                            *
-  *                                                                          *
-  ***************************************************************************/
-
-  // '*': true,
-
+  '*': false,
+  'users/login': true,
+  'users/register-participant': true,
+  'users/userinfo': 'isUser',
 };

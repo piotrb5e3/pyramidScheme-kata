@@ -3,14 +3,14 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
   createParticipantWithPassword(password) {
-    return this._createUser(password, false);
+    return this.createUserWithPassword(password, false);
   },
 
   createAdminWithPassword(password) {
-    return this._createUser(password, true);
+    return this.createUserWithPassword(password, true);
   },
 
-  _createUser: async function(password, isAdmin) {
+  createUserWithPassword: async function(password, isAdmin) {
     const passwordHash = await this._getHashedPassword(password);
     return User.create({
       username: faker.internet.userName(),

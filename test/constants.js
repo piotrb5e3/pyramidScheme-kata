@@ -1,0 +1,4 @@
+module.exports = {
+  AUTH_HEADER_NAME: 'X-API-AUTH',
+  AUTH_HEADER_VALUE_PREFIX: 'TOKEN ',
+};

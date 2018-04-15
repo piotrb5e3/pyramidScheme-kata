@@ -27,7 +27,7 @@ module.exports = {
       statusCode: 201,
     },
     usernameTaken: {
-      statusCode: 409,
+      responseType: 'usernameTaken',
     }
   },
 
