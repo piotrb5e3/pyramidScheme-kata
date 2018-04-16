@@ -14,5 +14,9 @@ module.exports = {
     const tokenValidTo = validTo.format();
     await User.update({ id: user.id }, { authToken: newAuthToken, authTokenValidTo: tokenValidTo });
     return newAuthToken;
-  }
+  },
+  addFundsAndRefetchUser: async function(amount, user) {
+    await User.update({ id: user.id }, { balance: user.balance + amount });
+    return User.findOne({ id: user.id });
+  },
 };

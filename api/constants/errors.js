@@ -31,5 +31,9 @@ module.exports = {
   badCredentials: {
     code: 'E_BAD_CREDENTIALS',
     message: `${MESSAGE_PREFIX} incorrect username or password provided.`,
+  },
+  insufficientFunds: {
+    code: 'E_INSUFFICIENT_FUNDS',
+    message: `${MESSAGE_PREFIX} insufficient funds in the account.`,
   }
 };

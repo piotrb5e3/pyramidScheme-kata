@@ -32,12 +32,20 @@ before(function (done) {
 });
 
 // After all tests have finished...
-after((done) => {
-  sails.lower(done);
+after(async () => {
+  await Treasury.destroy({});
+  await Treasury.setup();
+  await sails.lower();
+});
+
+beforeEach(async () => {
+  await Treasury.destroy({});
+  await Treasury.setup();
 });
 
 // Clean up after each test
-afterEach((done) => {
-  User.destroy({})
-    .then(() => done());
+afterEach(async () => {
+  await User.destroy({});
+  await Pyramid.destroy({});
+  await PyramidNode.destroy({});
 });
