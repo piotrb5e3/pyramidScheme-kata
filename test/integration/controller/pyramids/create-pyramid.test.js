@@ -8,8 +8,13 @@ const userFactory = require('../../../factory/user');
 const userHelper = require('../../../helpers/user');
 const constants = require('../../../constants');
 
+const transferQueueMock = require('../../../mocks/transfer-queue');
+
 describe('pyramids/create-pyramid', () => {
   describe('#createPyramid()', () => {
+
+    beforeEach(() => transferQueueMock.setup());
+    afterEach(() => transferQueueMock.teardown());
 
     it('should not create pyramid for unauthenticated user', async () => {
       await supertest(sails.hooks.http.app)
@@ -148,18 +153,16 @@ describe('pyramids/create-pyramid', () => {
       expect(participant).to.have.property('balance').equal(startingFunds - 1);
     });
 
-    it('should place the charged token into the treasury', async () => {
+    it('should place the charged token into treasury transfer queue', async () => {
       const startingFunds = faker.random.number(100);
       let participant = await userFactory.createParticipant();
       participant = await userHelper.addFundsAndRefetchUser(startingFunds, participant);
       const authToken = await userHelper.setupAndGetValidAuthTokenForUser(participant);
-      const oldTreasuryBalance = await Treasury.getBalance();
       await supertest(sails.hooks.http.app)
         .post(CREATE_PYRAMID_URL)
         .set(constants.AUTH_HEADER_NAME, constants.AUTH_HEADER_VALUE_PREFIX + authToken)
         .expect(201);
-      const treasuryBalance = await Treasury.getBalance();
-      expect(treasuryBalance).to.be.equal(oldTreasuryBalance + 1);
+      expect(transferQueueMock.getAmountTransferredForTreasury()).to.equal(1);
     });
   });
 });

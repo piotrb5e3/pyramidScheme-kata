@@ -7,6 +7,8 @@ moment.locale('en');
 
 const { Before, After, BeforeAll, AfterAll, setDefaultTimeout } = require('cucumber');
 
+const transferQueueMock = require('../../test/mocks/transfer-queue');
+
 setDefaultTimeout(20 * 1000);
 
 // Before running any tests...
@@ -44,4 +46,12 @@ After(async () => {
   await User.destroy({});
   await Pyramid.destroy({});
   await PyramidNode.destroy({});
+});
+
+Before({ tags: '@withStubbedQueue' }, () => {
+  transferQueueMock.setup();
+});
+
+After({ tags: '@withStubbedQueue' }, () => {
+  transferQueueMock.teardown();
 });

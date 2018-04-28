@@ -1,3 +1,5 @@
+const CREATE_PYRAMID_FEE = 1;
+
 module.exports = {
 
 
@@ -29,8 +31,8 @@ module.exports = {
     }
     const pyramid = await Pyramid.create({ creator: user.id }).fetch();
     await PyramidNode.createRoot(pyramid, user);
-    await User.update({ id: user.id }, { balance: user.balance - 1 });
-    await Treasury.addFunds(1);
+    await User.update({ id: user.id }, { balance: user.balance - CREATE_PYRAMID_FEE });
+    await sails.helpers.queueTransferForTreasury(CREATE_PYRAMID_FEE);
     return exits.success({
       id: pyramid.id,
     });

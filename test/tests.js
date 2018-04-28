@@ -2,6 +2,7 @@ var sails = require('sails');
 
 const chai = require('chai');
 chai.use(require('chai-moment'));
+chai.use(require('chai-as-promised'));
 
 const moment = require('moment-timezone');
 moment.locale('en');

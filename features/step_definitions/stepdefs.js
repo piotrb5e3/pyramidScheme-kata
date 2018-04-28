@@ -5,6 +5,8 @@ const { Given, When, Then } = require('cucumber');
 const userHelper = require('../../test/helpers/user');
 const constants = require('../../test/constants');
 
+const transferQueueMock = require('../../test/mocks/transfer-queue');
+
 Given(/(\w) is a participant/, (username) => {
   return User.create({ username, passwordHash: '#', isAdmin: false });
 });
@@ -31,5 +33,10 @@ Then(/server responds with success/, function () {
 Then(/(\w) has balance of (\d+) credits/, async (username, balance) => {
   const user = await User.findOne({ username });
   expect(user).to.have.property('balance').equal(balance);
+});
+
+Then(/transfer of (\d+) credits was enqueued for (\w)/, async (amount, username) => {
+  const user = await User.findOne({ username });
+  expect(transferQueueMock.getAmountTransferredForUserId(user.id)).to.equal(amount);
 });
 
