@@ -1,0 +1,38 @@
+const expect = require('chai').expect;
+const supertest = require('supertest');
+const { When, Then } = require('cucumber');
+
+const userHelper = require('../../test/helpers/user');
+const constants = require('../../test/constants');
+
+async function getUserAuthTokenOrNullForAnonymous(username) {
+  if (username === 'anonymous') {
+    return null;
+  }
+  const user = await User.findOne({ username });
+  return userHelper.setupAndGetValidAuthTokenForUser(user);
+}
+
+When(/(\w+) transfers-in (\d+) credits/, async function (username, amount) {
+  const authToken = await getUserAuthTokenOrNullForAnonymous(username);
+  const credits = '$'.repeat(amount);
+  let req = supertest(sails.hooks.http.app)
+    .post('/transfer-in');
+  if (authToken) {
+    req = req.set(constants.AUTH_HEADER_NAME, constants.AUTH_HEADER_VALUE_PREFIX + authToken);
+  }
+  this.response = await req.send({ credits });
+});
+
+Then(/server responds with (success|forbidden|unauthorized|bad request)/, function (statusDesc) {
+  const expectedStatus = {
+    success: 200,
+    unauthorized: 401,
+    forbidden: 403,
+    'bad request': 400,
+  }[statusDesc];
+  expect(this.response).to.have.property('status').equal(expectedStatus);
+});
+
+
+

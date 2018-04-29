@@ -10,7 +10,8 @@ module.exports = {
   inputs: {
     credits: {
       type: 'string',
-      regex: /^\$*$/,
+      regex: /^\$+$/,
+      required: true,
     }
   },
 

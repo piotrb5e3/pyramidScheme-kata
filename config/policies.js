@@ -14,5 +14,5 @@ module.exports.policies = {
   'users/register-participant': true,
   'users/userinfo': 'isUser',
   'pyramids/create-pyramid': ['isUser', 'isParticipant'],
-  'users/transfer-in': true,
+  'users/transfer-in': ['isUser', 'isParticipant'],
 };
