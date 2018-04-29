@@ -35,5 +35,21 @@ module.exports = {
   insufficientFunds: {
     code: 'E_INSUFFICIENT_FUNDS',
     message: `${MESSAGE_PREFIX} insufficient funds in the account.`,
-  }
+  },
+  pyramidNotFound: {
+    code: 'E_PYRAMID_NOT_FOUND',
+    message: `${MESSAGE_PREFIX} pyramid with specified id was not found.`,
+  },
+  userNotFound: {
+    code: 'E_USER_NOT_FOUND',
+    message: `${MESSAGE_PREFIX} user with specified username was not found.`,
+  },
+  userNotFoundForPyramid: {
+    code: 'E_USER_NOT_IN_PYRAMID',
+    message: `${MESSAGE_PREFIX} specified user not participating in specified pyramid.`,
+  },
+  userFoundForPyramid: {
+    code: 'E_USER_IN_PYRAMID',
+    message: `${MESSAGE_PREFIX} specified user participating in specified pyramid.`,
+  },
 };

@@ -15,4 +15,5 @@ module.exports.policies = {
   'users/userinfo': 'isUser',
   'pyramids/create-pyramid': ['isUser', 'isParticipant'],
   'users/transfer-in': ['isUser', 'isParticipant'],
+  'pyramids/join-pyramid': ['isUser', 'isParticipant'],
 };

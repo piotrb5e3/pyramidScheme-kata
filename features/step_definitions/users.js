@@ -19,3 +19,9 @@ Then(/(\w+) has balance of (\d+) credits/, async (username, balance) => {
   const user = await User.findOne({ username });
   expect(user).to.have.property('balance').equal(balance);
 });
+
+Given(/the following users exist:/, async (dataTable) => {
+  const userCreatePromises = dataTable.hashes().map(({ username, balance, isAdmin }) =>
+    User.create({ username, passwordHash: '#', isAdmin, balance }));
+  await Promise.all(userCreatePromises);
+});

@@ -14,4 +14,5 @@ module.exports.routes = {
   'get /userinfo': { action: 'users/userinfo' },
   'post /create-pyramid': { action: 'pyramids/create-pyramid' },
   'post /transfer-in': { action: 'users/transfer-in' },
+  'post /join-pyramid': { action: 'pyramids/join-pyramid' },
 };

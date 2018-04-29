@@ -8,4 +8,12 @@ module.exports = {
   createRoot(pyramid, user) {
     return PyramidNode.create({ parent: null, pyramid: pyramid.id, user: user.id, depth: 0 });
   },
+  createSubnodeForUser(node, user) {
+    return PyramidNode.create({
+      parent: node.id,
+      pyramid: node.pyramid,
+      user: user.id,
+      depth: node.depth + 1
+    });
+  }
 };
